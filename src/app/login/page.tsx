@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
@@ -39,7 +40,7 @@ export default function Login() {
               </span>
             </div>
 
-            <button className="mt-6 w-full bg-gray-500 text-white py-2 rounded-lg font-bold">
+            <button className="mt-6 w-full bg-gray-500 text-white py-2 rounded-lg font-bold"  onClick={() => router.push("/")} type="button">
               Sign In
             </button>
           </form>
