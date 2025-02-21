@@ -1,82 +1,140 @@
-"use client"
-import React, { useState, useEffect } from 'react';
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+"use client";
+
+import React, { useEffect, useState } from 'react';
+import { Container, Card, CardContent, Typography, Box } from '@mui/material';
+import { Line, Bar, Radar, PolarArea } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, RadarController, PolarAreaController, Title, Tooltip, Legend, RadialLinearScale, ArcElement } from 'chart.js';
 import Navbar from '../../components/Navbar';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  RadarController,
+  PolarAreaController,
+  Title,
+  Tooltip,
+  Legend,
+  RadialLinearScale,
+  ArcElement // Register the ArcElement
+);
 
-interface WeatherData {
-  date: string;
-  temperature: number;
-}
+const fetchWeatherData = async () => {
+  const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid=your api key&');
+  const data = await response.json();
+  return data;
+};
 
-const News: React.FC = () => {
-  const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
-  const [notification, setNotification] = useState<string | null>(null);
+const Dashboard = () => {
+  const [weatherData, setWeatherData] = useState(null);
 
   useEffect(() => {
-    // Simulating API call to fetch weather data
-    const fetchWeatherData = async () => {
-      // Replace this with actual API call
-      const mockData: WeatherData[] = [
-        { date: '2023-05-01', temperature: 22 },
-        { date: '2023-05-02', temperature: 24 },
-        { date: '2023-05-03', temperature: 20 },
-        { date: '2023-05-04', temperature: 25 },
-        { date: '2023-05-05', temperature: 23 },
-      ];
-      setWeatherData(mockData);
-      setNotification('Weather data updated successfully!');
-
-      // Clear notification after 3 seconds
-      setTimeout(() => setNotification(null), 3000);
+    const getWeatherData = async () => {
+      const data = await fetchWeatherData();
+      setWeatherData(data);
     };
 
-    fetchWeatherData();
+    getWeatherData();
   }, []);
 
-  const chartData = {
-    labels: weatherData.map(data => data.date),
+  if (!weatherData) {
+    return <div>Loading...</div>;
+  }
+
+  const temperatureData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     datasets: [
       {
-        label: 'Temperature (°C)',
-        data: weatherData.map(data => data.temperature),
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1,
+        label: 'Temperature',
+        data: [30, 25, 27, 28, 29, 30, 31, 32, 30, 28, 27, 26],
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
       },
     ],
   };
 
-  const chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top' as const,
+  const humidityData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    datasets: [
+      {
+        label: 'Humidity',
+        data: [60, 65, 70, 75, 80, 85, 90, 95, 90, 85, 80, 75],
+        borderColor: 'rgba(153, 102, 255, 1)',
+        backgroundColor: 'rgba(153, 102, 255, 0.2)',
       },
-      title: {
-        display: true,
-        text: 'Weather Report',
+    ],
+  };
+
+  const windSpeedData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    datasets: [
+      {
+        label: 'Wind Speed',
+        data: [10, 12, 14, 16, 18, 20, 22, 24, 22, 20, 18, 16],
+        borderColor: 'rgba(255, 159, 64, 1)',
+        backgroundColor: 'rgba(255, 159, 64, 0.2)',
       },
-    },
+    ],
+  };
+
+  const precipitationData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    datasets: [
+      {
+        label: 'Precipitation',
+        data: [5, 10, 15, 20, 25, 30, 35, 40, 35, 30, 25, 20],
+        borderColor: 'rgba(54, 162, 235, 1)',
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      },
+    ],
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Weather Dashboard</h1>
-      {notification && (
-        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
-          <span className="block sm:inline">{notification}</span>
-        </div>
-      )}
-      <div className="bg-white shadow-md rounded-lg p-6">
-        <Line data={chartData} options={chartOptions} />
-      </div>
-    </div>
+      <Container maxWidth="lg" className="py-8">
+        <Typography variant="h4" component="h1" gutterBottom>
+          Weather Dashboard
+        </Typography>
+        <Box className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Card>
+            <CardContent>
+              <Typography variant="h6" component="h2" gutterBottom>
+                Temperature
+              </Typography>
+              <Line data={temperatureData} />
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" component="h2" gutterBottom>
+                Humidity
+              </Typography>
+              <Bar data={humidityData} />
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" component="h2" gutterBottom>
+                Wind Speed
+              </Typography>
+              <Radar data={windSpeedData} />
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" component="h2" gutterBottom>
+                Precipitation
+              </Typography>
+              <PolarArea data={precipitationData} />
+            </CardContent>
+          </Card>
+        </Box>
+      </Container>
     </div>
   );
 };
 
-export default News;
+export default Dashboard;

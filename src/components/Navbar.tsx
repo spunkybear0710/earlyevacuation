@@ -44,19 +44,19 @@ const Navbar = () => {
 
   const NavLinks = () => (
     <>
-      <a href="#home" className="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
+      <a href="../../home" className="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
         <Home className="w-5 h-5" />
         <span className="hidden lg:inline">Home</span>
       </a>
-      <a href="#dashboard" className="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
+      <a href="../../dashboard" className="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
         <LayoutDashboard className="w-5 h-5" />
         <span className="hidden lg:inline">Dashboard</span>
       </a>
-      <a href="#map" className="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
+      <a href="../../map" className="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
         <Map className="w-5 h-5" />
         <span className="hidden lg:inline">Map</span>
       </a>
-      <a href="#news" className="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
+      <a href="../../news" className="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
         <Newspaper className="w-5 h-5" />
         <span className="hidden lg:inline">News</span>
       </a>
@@ -163,12 +163,6 @@ const Navbar = () => {
                       className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700"
                     >
                       Your Profile
-                    </a>
-                    <a
-                      href="#settings"
-                      className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
-                      Settings
                     </a>
                     <button
                       onClick={handleLogout}

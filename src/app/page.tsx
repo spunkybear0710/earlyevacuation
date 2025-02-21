@@ -1,179 +1,71 @@
 "use client";
 
-import React from 'react';
-import { Box, Card, CardContent, Container, Grid, Typography, Paper, Chip, Divider } from '@mui/material';
-import { WbSunny, Cloud, Opacity, Air, WaterDrop, Warning, ThunderstormOutlined } from '@mui/icons-material';
-import Navbar from '../components/Navbar';
+import React from "react";
+import { useRouter } from "next/navigation";
+import { FcGoogle } from "react-icons/fc";
+import { ImFacebook2 } from "react-icons/im";
+import { FaSquareXTwitter } from "react-icons/fa6";
+import { BsEyeSlashFill } from "react-icons/bs";
 
-const Home = () => {
-
-  const cities = [
-    {
-      name: 'Delhi',
-      temp: 32,
-      condition: 'Partly Cloudy',
-      humidity: 45,
-      windSpeed: 12,
-      icon: Cloud
-    },
-    {
-      name: 'Mumbai',
-      temp: 29,
-      condition: 'Rainy',
-      humidity: 80,
-      windSpeed: 15,
-      icon: ThunderstormOutlined
-    },
-    {
-      name: 'Bangalore',
-      temp: 26,
-      condition: 'Sunny',
-      humidity: 55,
-      windSpeed: 8,
-      icon: WbSunny
-    },
-    {
-      name: 'Kolkata',
-      temp: 30,
-      condition: 'Humid',
-      humidity: 75,
-      windSpeed: 10,
-      icon: WaterDrop
-    }
-  ];
-
-  const newsItems = [
-    {
-      title: 'Heavy Rainfall Warning',
-      description: 'Mumbai and coastal regions expected to receive heavy rainfall in the next 48 hours.',
-      severity: 'warning',
-      date: '2 hours ago'
-    },
-    {
-      title: 'Heat Wave Alert',
-      description: 'Delhi NCR experiencing severe heat wave conditions. Temperature expected to rise further.',
-      severity: 'error',
-      date: '5 hours ago'
-    },
-    {
-      title: 'Cyclone Update',
-      description: 'Tropical cyclone forming in Bay of Bengal, may affect eastern coastal regions.',
-      severity: 'info',
-      date: '1 day ago'
-    }
-  ];
-
+export default function Login() {
+  const router = useRouter();
+  
   return (
-    <div><Navbar/>
-    <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50', py: 4, marginTop: 8 }}>
-      <Container maxWidth="lg">
-        {/* Header */}
-        <Box sx={{ textAlign: 'center', mb: 6 }}>
-          <Typography variant="h3" component="h1" gutterBottom>
-            Weather Dashboard
-          </Typography>
-          <Typography variant="subtitle1" color="text.secondary">
-            Real-time weather updates for major Indian cities
-          </Typography>
-        </Box>
+    <div
+      className="h-screen w-screen flex items-center justify-center"
+      style={{
+        backgroundImage: `url('/login_background.jpeg')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className="w-full max-w-4xl bg-black bg-opacity-50 rounded-lg flex shadow-lg overflow-hidden">
+        <div className="w-1/2 p-10">
+          <h2 className="text-3xl font-bold text-white">Sign In</h2>
+          <form className="mt-6">
+            <label className="block text-gray-300">User Name</label>
+            <input
+              type="text"
+              className="w-full px-4 py-2 mt-2 bg-transparent border-b-2 border-gray-400 text-white focus:outline-none"
+            />
 
-        {/* Weather Cards Grid */}
-        <Grid container spacing={3} sx={{ mb: 6 }}>
-          {cities.map((city) => {
-            const Icon = city.icon;
-            return (
-              <Grid item xs={12} sm={6} md={3} key={city.name}>
-                <Card
-                  elevation={2}
-                  sx={{
-                    height: '100%',
-                    transition: 'all 0.3s',
-                    '&:hover': {
-                      transform: 'translateY(-4px)',
-                      boxShadow: 6
-                    }
-                  }}
-                >
-                  <CardContent>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                      <Typography variant="h6" component="h2">
-                        {city.name}
-                      </Typography>
-                      <Icon sx={{ color: 'primary.main', fontSize: 32 }} />
-                    </Box>
-                    <Typography variant="h3" component="div" sx={{ mb: 2 }}>
-                      {city.temp}°C
-                    </Typography>
-                    <Typography color="text.secondary" gutterBottom>
-                      {city.condition}
-                    </Typography>
-                    <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Opacity sx={{ fontSize: 20, mr: 0.5, color: 'info.main' }} />
-                        <Typography variant="body2">{city.humidity}%</Typography>
-                      </Box>
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Air sx={{ fontSize: 20, mr: 0.5, color: 'info.main' }} />
-                        <Typography variant="body2">{city.windSpeed} km/h</Typography>
-                      </Box>
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Grid>
-            );
-          })}
-        </Grid>
+            <label className="block mt-4 text-gray-300">Password</label>
+            <div className="relative">
+              <input
+                type="password"
+                className="w-full px-4 py-2 mt-2 bg-transparent border-b-2 border-gray-400 text-white focus:outline-none"
+              />
+              <span className="absolute right-2 top-3 cursor-pointer text-gray-300">
+                <BsEyeSlashFill />
+              </span>
+            </div>
 
-        {/* Weather News Section */}
-        <Box sx={{ mt: 6 }}>
-          <Typography variant="h4" component="h2" gutterBottom>
-            Latest Weather News
-          </Typography>
-          <Grid container spacing={3}>
-            {newsItems.map((news, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <Paper
-                  elevation={2}
-                  sx={{
-                    p: 3,
-                    height: '100%',
-                    transition: 'all 0.3s',
-                    '&:hover': {
-                      transform: 'translateY(-4px)',
-                      boxShadow: 6
-                    }
-                  }}
-                >
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                    <Warning sx={{ color: `${news.severity}.main`, mr: 1 }} />
-                    <Typography variant="h6" component="h3">
-                      {news.title}
-                    </Typography>
-                  </Box>
-                  <Divider sx={{ my: 2 }} />
-                  <Typography color="text.secondary" paragraph>
-                    {news.description}
-                  </Typography>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Chip
-                      label={news.severity.toUpperCase()}
-                      color={news.severity as 'warning' | 'error' | 'info'}
-                      size="small"
-                      sx={{ textTransform: 'capitalize' }}
-                    />
-                    <Typography variant="caption" color="text.secondary">
-                      {news.date}
-                    </Typography>
-                  </Box>
-                </Paper>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-      </Container>
-    </Box>
+            <button className="mt-6 w-full bg-gray-500 text-white py-2 rounded-lg font-bold"  onClick={() => router.push("./home")} type="button">
+              Sign In
+            </button>
+          </form>
+
+          <p className="mt-4 text-gray-300 text-center">Or Sign In With</p>
+          <div className="flex justify-center mt-2 space-x-4">
+            <button className="text-white text-xl">
+              <FcGoogle />
+            </button>
+            <button className="text-white text-xl">
+              <ImFacebook2 color="#2da3ff" />
+            </button>
+            <button className="text-white text-xl">
+              <FaSquareXTwitter />
+            </button>
+          </div>
+        </div>
+        <div className="w-1/2 bg-gray-100 flex flex-col justify-center items-center p-10">
+          <h2 className="text-3xl font-bold text-gray-800">New Here?</h2>
+          <p className="mt-2 text-gray-600">Sign Up And Discover</p>
+          <button className="mt-6 bg-white text-gray-800 py-2 px-6 rounded-lg font-bold shadow-md" onClick={() => router.push("/signup")}>
+            Sign Up
+          </button>
+        </div>
+      </div>
     </div>
   );
-};
-
-export default Home;
+}

@@ -22,7 +22,7 @@ export default function Login() {
         <div className="w-1/2 bg-gray-100 flex flex-col justify-center items-center p-10">
           <h2 className="text-3xl font-bold text-gray-800">One Of Us ?</h2>
           <p className="mt-2 text-gray-600">Just Sign In </p>
-          <button className="mt-6 bg-white text-gray-800 py-2 px-6 rounded-lg font-bold shadow-md" onClick={() => router.push("/login")}>
+          <button className="mt-6 bg-white text-gray-800 py-2 px-6 rounded-lg font-bold shadow-md" onClick={() => router.push("./")}>
             Sign In
           </button>
         </div>
@@ -62,8 +62,7 @@ export default function Login() {
                 <BsEyeSlashFill />
               </span>
             </div>
-
-            <button className="mt-6 w-full bg-gray-500 text-white py-2 rounded-lg font-bold">
+            <button className="mt-6 w-full bg-gray-500 text-white py-2 rounded-lg font-bold" onClick={() => router.push("./verification")} type="button">
               Sign In
             </button>
           </form>
